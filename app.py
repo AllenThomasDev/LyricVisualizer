@@ -12,18 +12,26 @@ app = dash.Dash(__name__)
 app.layout = html.Div(style={'border':'double','height':'100vh','backgroundColor':'#111111'},children=[
     dcc.Input(id='artist-name', value='Frank Ocean', type='text'),
     dcc.Input(id='artist-song', value='Self Control', type='text'),
+    dcc.RadioItems(id='stopword-choice',
+    options=[
+        {'label': 'Ignore Stopwords', 'value': 1 },
+        {'label': 'ShowAll', 'value': 0},
+    ],
+    value=0
+)  ,
     dcc.Graph(id="graph", style={"width": "40vw","height": "40vw",'margin':'auto'}),
 ])
 
 @app.callback(
     Output('graph', 'figure'),
     [Input(component_id='artist-name', component_property='value'),
-     Input(component_id='artist-song', component_property='value')]
+     Input(component_id='artist-song', component_property='value'),
+     Input(component_id='stopword-choice', component_property='value')]
 )
 
-def update_graph(artist_name,artist_song):
+def update_graph(artist_name,artist_song,stopword_choice):
     url=f"https://www.metrolyrics.com/{artist_song.lower().replace(' ','-')}-lyrics-{artist_name.lower().replace(' ','-')}.html"
-    df = pull_lyric(url)
+    df = pull_lyric(url,stopword_choice)
     fig=go.Figure(layout=go.Layout(
         title=f"{artist_song}",
         template='plotly_dark',
