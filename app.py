@@ -11,7 +11,7 @@ app = dash.Dash(__name__)
 app.layout = html.Div([
     dcc.Input(id='artist-name', value='Frank Ocean', type='text'),
     dcc.Input(id='artist-song', value='Self Control', type='text'),
-    dcc.Graph(id="graph", style={"width": "40vw","height": "40vw",'border':'double','margin':'auto'}),
+    dcc.Graph(id="graph", style={"width": "40vw","height": "40vw",'margin':'auto'}),
 ])
 
 @app.callback(
@@ -24,15 +24,21 @@ def update_graph(artist_name,artist_song):
     url=f"https://www.metrolyrics.com/{artist_song.lower().replace(' ','-')}-lyrics-{artist_name.lower().replace(' ','-')}.html"
     print(url)
     df = pull_lyric(url)
-    return go.Figure({
-        'data': [dict(
+    fig=go.Figure(layout=go.Layout(
+        title=f"{artist_song}",
+        template='plotly_dark',
+        width=800,
+        height=800))
+    fig.add_trace(
+    go.Scattergl(
             x=df['x'],
             y=df['y'],
             text=df['words'],
             mode='markers',
             marker={'color':df['freq']},
-        )],'layout':{'template':'plotly_dark'}
-    })
+
+    ))
+    return fig
 
 
 if __name__ == '__main__':
