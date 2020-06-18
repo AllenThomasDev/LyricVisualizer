@@ -12,14 +12,16 @@ app = dash.Dash(__name__)
 app.layout = html.Div(style={'border':'double','height':'100vh','backgroundColor':'#111111'},children=[
     dcc.Input(id='artist-name', value='Frank Ocean', type='text'),
     dcc.Input(id='artist-song', value='Self Control', type='text'),
+    html.Div(
+    dcc.Graph(id="graph", style={"width": "40vw","height": "40vw",'margin':'auto'})),
+    html.Div(
     dcc.RadioItems(id='stopword-choice',
     options=[
         {'label': 'Ignore Stopwords', 'value': 1 },
         {'label': 'ShowAll', 'value': 0},
     ],
-    value=0
-)  ,
-    dcc.Graph(id="graph", style={"width": "40vw","height": "40vw",'margin':'auto'}),
+    value=1
+),style={'color':'white','align':'center','width':'40vw','margin':'auto','padding-top': '50px'})
 ])
 
 @app.callback(
