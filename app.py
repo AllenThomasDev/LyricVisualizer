@@ -4,8 +4,7 @@ import dash_html_components as html
 import dash_core_components as dcc
 from dash.dependencies import Input, Output
 import re
-from songsim import *
-import pandas as pd
+from songsim import text_to_dataframe
 
 
 app = dash.Dash(

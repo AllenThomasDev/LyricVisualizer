@@ -1,14 +1,13 @@
 import pandas as pd
 import re
-def text_to_dataframe(filename):
+def text_to_dataframe(lines):
     words=[]
-    with open(filename,'r') as f:
-        song = [re.sub("[^a-zA-Z0-9-' \.]", '', x).replace('-',' ') for x in f.readlines() if ('[' not in x or ']' not in x) and x !='\n']
+    song = [re.sub("[^a-zA-Z0-9\-' .]", '', x).replace('-',' ') for x in lines if ('[' not in x or ']' not in x) and x !='\n']
     for line in song:
         wlist=line.split(' ')
         for word in wlist:
             words.append(word)
-            
+
     number_of_words=len(words)
     points={'x':[],'y':[],'words':[],'freq':[]}
     for x in range(number_of_words):
