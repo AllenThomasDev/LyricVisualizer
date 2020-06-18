@@ -1,15 +1,19 @@
 import requests
 from bs4 import BeautifulSoup
-page = requests.get("https://www.metrolyrics.com/thinking-about-you-lyrics-frank-ocean.html")
+from songsim import *
 
-soup = BeautifulSoup(page.content, 'html.parser')
-verses=soup.find_all('p','class'=="verse")
-l=[]
-for verse in verses:
-    if 'Lyrics Terms of Use' in verse.text or 'Advisory - the following lyrics contain explicit language:' in verse.text or 'All rights reserved.' in verse.text:
-        pass
-    else:
-        lines=verse.text.split('\n')
-        for line in lines:
-            l.append(line)
-print(l)
+
+def pull_lyric(url):
+    page = requests.get(url)
+    soup = BeautifulSoup(page.content, 'html.parser')
+    verses=soup.find_all('p','class'=="verse")
+    l=[]
+    for verse in verses:
+        if 'Lyrics Terms of Use' in verse.text or 'Advisory - the following lyrics contain explicit language:' in verse.text or 'All rights reserved.' in verse.text:
+            pass
+        else:
+            lines=verse.text.split('\n')
+            for line in lines:
+                l.append(line)
+    df=text_to_dataframe(l)
+    return(df)
