@@ -11,19 +11,21 @@ from getlyric import pull_lyric
 app = dash.Dash(__name__,    meta_tags=[
         {"name": "viewport", "content": "width=device-width, initial-scale=1"}
     ])
-app.layout = html.Div(style={'border':'double','height':'100vh','backgroundColor':'#10000'},children=[
-    dcc.Input(id='artist-name', value='Frank Ocean', type='text'),
-    dcc.Input(id='artist-song', value='Self Control', type='text'),
-    html.Div(
-    dcc.Graph(id="graph",responsive=True,style={'height':'100%','width':'100%'}),style={'width':'100%','height':'100%','border':'double'}),
-    html.Div(
-    dcc.RadioItems(id='stopword-choice',
-    options=[
-        {'label': 'Ignore Stopwords', 'value': 1 },
-        {'label': 'ShowAll', 'value': 0},
-    ],
-    value=1
-),style={'color':'white','align':'center','padding-left': '210px'})
+app.layout = html.Div(style={'border':'double','height':'90vh','width':'100vw','text-align':'center','backgroundColor':'#111111'},children=[
+    html.Div(children=[
+        html.Div(children=[
+            dcc.Input(id='artist-name', value='Frank Ocean', type='text'),
+            dcc.Input(id='artist-song', value='Self Control', type='text')],style={'text-align':'left'}),
+        dcc.Graph(id="graph",responsive=True,style={'height':'100%','width':'100%'}),
+        html.Div(
+            dcc.RadioItems(id='stopword-choice',
+                options=[
+                        {'label': 'Ignore Stopwords', 'value': 1 },
+                        {'label': 'ShowAll', 'value': 0},
+                        ],
+                value=1
+                          ),style={'color':'white','text-align':'left','padding-up':'210px'})
+    ],style={'width':'70vh','height':'70vh','text-align':'left', 'display': 'inline-block','border':'double'}),
 ])
 
 @app.callback(
