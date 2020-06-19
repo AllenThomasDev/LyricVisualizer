@@ -17,6 +17,7 @@ app.layout = html.Div(style={'border':'double','height':'90vh','width':'100vw','
             dcc.Input(id='artist-name', value='Frank Ocean', type='text'),
             dcc.Input(id='artist-song', value='Self Control', type='text')],style={'text-align':'left'}),
         dcc.Graph(id="graph",responsive=True,style={'height':'100%','width':'100%'}),
+        dcc.Input(id='song-url', value=None,type='text',placeholder='Enter song URL only if search by name does not work',style={'width':'100%'}),
         html.Div(
             dcc.RadioItems(id='stopword-choice',
                 options=[
@@ -32,11 +33,14 @@ app.layout = html.Div(style={'border':'double','height':'90vh','width':'100vw','
     Output('graph', 'figure'),
     [Input(component_id='artist-name', component_property='value'),
      Input(component_id='artist-song', component_property='value'),
+     Input(component_id='song-url', component_property='value'),
      Input(component_id='stopword-choice', component_property='value')]
 )
 
-def update_graph(artist_name,artist_song,stopword_choice):
-    url=f"https://www.metrolyrics.com/{artist_song.lower().replace(' ','-')}-lyrics-{artist_name.lower().replace(' ','-')}.html"
+def update_graph(artist_name,artist_song,song_url,stopword_choice):
+    url = song_url
+    if url == None:
+        url=f"https://www.metrolyrics.com/{artist_song.lower().replace(' ','-')}-lyrics-{artist_name.lower().replace(' ','-')}.html"
     df = pull_lyric(url,stopword_choice)
     fig=go.Figure(layout=go.Layout(
         title=f"{artist_song.capitalize()}",
@@ -64,7 +68,7 @@ def update_graph(artist_name,artist_song,stopword_choice):
             y=df['y'],
             text=df['words'],
             mode='markers',
-            marker_symbol=1,
+            marker_symbol=10,
             marker_size=5,
             marker={'color':df['freq']},
 
