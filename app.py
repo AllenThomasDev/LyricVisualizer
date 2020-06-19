@@ -11,11 +11,11 @@ from getlyric import pull_lyric
 app = dash.Dash(__name__,    meta_tags=[
         {"name": "viewport", "content": "width=device-width, initial-scale=1"}
     ])
-app.layout = html.Div(style={'border':'double','height':'100%','backgroundColor':'#111111'},children=[
+app.layout = html.Div(style={'border':'double','height':'100vh','backgroundColor':'#10000'},children=[
     dcc.Input(id='artist-name', value='Frank Ocean', type='text'),
     dcc.Input(id='artist-song', value='Self Control', type='text'),
     html.Div(
-    dcc.Graph(id="graph", style={"width": "40%","height": "40%",'margin':'auto'})),
+    dcc.Graph(id="graph",responsive=True,style={'height':'100%','width':'100%'}),style={'width':'100%','height':'100%','border':'double'}),
     html.Div(
     dcc.RadioItems(id='stopword-choice',
     options=[
@@ -23,7 +23,7 @@ app.layout = html.Div(style={'border':'double','height':'100%','backgroundColor'
         {'label': 'ShowAll', 'value': 0},
     ],
     value=1
-),style={'color':'white','align':'center','width':'40%','margin':'auto','padding-top': '50px','padding-left': '210px'})
+),style={'color':'white','align':'center','padding-left': '210px'})
 ])
 
 @app.callback(
@@ -39,19 +39,21 @@ def update_graph(artist_name,artist_song,stopword_choice):
     fig=go.Figure(layout=go.Layout(
         title=f"{artist_song.capitalize()}",
         template='plotly_dark',
-        width=800,
-        height=800,
         xaxis =  {                                     
                     'ticks':'',
-                    'zeroline':True,
+                    'zeroline':False,
                     'showticklabels':False,
-                    'showline':False
+                    'showline':False,
+                    'showgrid':True
                   },
         yaxis = {                              
-                 'ticks':'',
-                 'zeroline':True,
+                'ticks':'',
+                'zeroline':False,
                 'showticklabels':False,
-                'showline':False
+                'showline':False,
+                'showgrid':True,
+
+
               }))
 
     fig.add_trace(
@@ -60,6 +62,8 @@ def update_graph(artist_name,artist_song,stopword_choice):
             y=df['y'],
             text=df['words'],
             mode='markers',
+            marker_symbol=1,
+            marker_size=5,
             marker={'color':df['freq']},
 
     ))
