@@ -13,6 +13,7 @@ import time
 app = dash.Dash(__name__,    meta_tags=[
         {"name": "viewport", "content": "width=device-width, initial-scale=1"}
     ])
+server=app.server
 app.layout = html.Div(style={'height':'95vh','width':'100vw','text-align':'center','backgroundColor':'#111111'},
 children=[
     html.Div(
@@ -36,8 +37,8 @@ children=[
                                 {'label': 'Ignore Stopwords', 'value': 1 },
                                 {'label': 'Show All', 'value': 0},
                                 ],
-                        value=1))
-                        ],style={'color':'white','width':'60vh','padding':'10px','float':'left','text-align':'left'}),
+                        value=1),style={'color':'white'})
+                        ],style={'width':'60vh','padding':'10px','float':'left','text-align':'left'}),
 
     html.Div(style={'width':'60vh','float':'right'},children=[html.P('PlaceHolder')]),
     html.Div(children=[
