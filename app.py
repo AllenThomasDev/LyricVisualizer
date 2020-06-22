@@ -10,11 +10,12 @@ from songs import songs
 import time
 
 # https://www.metrolyrics.com/thinking-about-you-lyrics-frank-ocean.html
-app = dash.Dash(__name__,    meta_tags=[
+app = dash.Dash(__name__,assets_external_path="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css",  
+                    meta_tags=[
         {"name": "viewport", "content": "width=device-width, initial-scale=1"}
     ])
 server=app.server
-app.layout = html.Div(style={'height':'95vh','width':'100vw','text-align':'center','backgroundColor':'#111111'},
+app.layout = html.Div(style={'height':'95vh','width':'99vw','text-align':'center','backgroundColor':'#111111'},
 children=[
     html.Div(
         children=
@@ -30,20 +31,22 @@ children=[
                     html.Div(
                         children=[
                         html.P('Search Song by URL(Only MetroLyrics)-',style={'color':'white','font-family':'Verdana'}),
-                        dcc.Input(id='song-url', value='',type='text',style={'width':'70%'})],style={'width':'100%'}),
-                        html.Div(
-                        dcc.RadioItems(id='stopword-choice',
+                        dcc.Input(id='song-url', value='',type='text',style={'width':'70%'})],style={'width':'100%'})
+                        ],style={'max-width':'250','float':'left','text-align':'left'}),
+
+    html.Div(children=[
+        dcc.Graph(id="graph",responsive=True,style={'height':'100%','width':'100%'}),
+        html.Div(
+        dcc.RadioItems(id='stopword-choice',
                         options=[
                                 {'label': 'Ignore Stopwords', 'value': 1 },
                                 {'label': 'Show All', 'value': 0},
                                 ],
-                        value=1),style={'color':'white'})
-                        ],style={'width':'60vh','padding':'10px','float':'left','text-align':'left'}),
+                        value=1),style={'float':'left','color':'white'})
+    ],style={'width':'100vw','height':'100vw','max-height':'850px','float':'left','max-width':'850px', 'display': 'inline-block'}),
+    html.Div(html.P('Placeholder Text Placeholder Text Placeholder Text Placeholder Text Placeholder Text Placeholder Text Placeholder Text Placeholder Text',style={'float':'left'}),style={'max-width':'500px','padding-top':'20px','float':'right'})
+    
 
-    html.Div(style={'width':'60vh','float':'right'},children=[html.P('PlaceHolder')]),
-    html.Div(children=[
-        dcc.Graph(id="graph",responsive=True,style={'height':'100%','width':'100%'})
-    ],style={'width':'70vh','height':'70vh','text-align':'left', 'display': 'inline-block'}),
 ])
 
 @app.callback(
@@ -125,4 +128,4 @@ def clearsearchname(value):
         return ''
 
 if __name__ == '__main__':
-    app.run_server(debug=True)
+    app.run_server(debug=False)
