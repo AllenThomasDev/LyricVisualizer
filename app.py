@@ -59,33 +59,36 @@ def update_graph(song_url,stopword_choice):
     url = song_url
     df = pull_lyric(url,stopword_choice)
     fig=go.Figure(layout=go.Layout(
+        hovermode='closest',
         template='plotly_dark',
         xaxis =  {                                     
                     'ticks':'',
                     'zeroline':False,
                     'showticklabels':False,
                     'showline':False,
-                    'showgrid':True
+                    'showgrid':False,
+                    'tickmode':"array",
+                    'ticktext':df['words'],
+                    'tickvals':[x for x in range(len(df['words']))],
                   },
         yaxis = {                              
                 'ticks':'',
                 'zeroline':False,
                 'showticklabels':False,
                 'showline':False,
-                'showgrid':True,
+                'showgrid':False,
+                'tickmode':"array",
+                'ticktext':df['words'],
+                'tickvals':[x for x in range(len(df['words']))],
 
 
-              }))
+              })
+              )
 
     fig.add_trace(
-    go.Scattergl(
-            x=df['x'],
-            y=df['y'],
-            text=df['words'],
-            mode='markers',
-            marker_symbol=1,
-            marker_size=5,
-            marker={'color':df['freq']},
+    go.Heatmap(
+            z=df['z'],
+            hoverongaps = False
 
     ))
     return fig

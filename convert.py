@@ -13,25 +13,23 @@ stopwords=['i',"i'm" ,'me', 'my', 'myself', 'we', 'our', 'ours', 'ourselves', 'y
                 "shan't", 'shouldn', "shouldn't", 'wasn', "wasn't", 'weren', "weren't", 'won', "won't", 'wouldn', "wouldn't"]
 def text_to_dataframe(lines,ignore_stopwords=True):
     words=[]
+    data={}
     song = [re.sub("[^a-zA-Z0-9\-' .]", '', x).replace('-',' ') for x in lines if ('[' not in x or ']' not in x) and x !='\n']
     for line in song:
         wlist=line.split(' ')
         for word in wlist:
             words.append(word.lower())
-
     number_of_words=len(words)
-    points={'x':[],'y':[],'words':[],'freq':[],'occ':[]}
+    matrix=[]
     for x in range(number_of_words):
+        row=[]
         for y in range(number_of_words):
             if words[x] == words[y]:
-                points['x'].append(x)
-                points['y'].append(y)
-                points['words'].append(words[x])
-                points['freq'].append(words.count(words[x])/len(words))
-                points['occ'].append(words.count(words[x]))
-
-    df=pd.DataFrame.from_dict(points)
-    if ignore_stopwords:
-        df=df[df['words'].isin(stopwords)==0]
-    return(df)
+                row.append(words.count(words[x]))
+            else:
+                row.append(None)
+        matrix.append(row)
+    data['z']=matrix
+    data['words']=words
+    return(data)
 
