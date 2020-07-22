@@ -39,8 +39,8 @@ children=[
         html.Div(
         dcc.RadioItems(id='stopword-choice',
                         options=[
-                                {'label': 'Ignore Stopwords', 'value': 1 },
-                                {'label': 'Show All', 'value': 0},
+                                {'label': 'Show All', 'value': 1 },
+                                {'label': 'Ignore Stopwords', 'value': 0},
                                 ],
                         value=1),style={'float':'left','color':'white'})
     ],style={'width':'100vw','height':'100vw','max-height':'850px','float':'left','max-width':'850px', 'display': 'inline-block'}),
@@ -57,7 +57,10 @@ children=[
 )
 def update_graph(song_url,stopword_choice):
     url = song_url
-    df = pull_lyric(url,stopword_choice)
+    if stopword_choice==1:
+        df = pull_lyric(url,False)
+    else:
+        df = pull_lyric(url,True)
     fig=go.Figure(layout=go.Layout(
         hovermode='closest',
         template='plotly_dark',

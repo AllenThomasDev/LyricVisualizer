@@ -11,7 +11,7 @@ stopwords=['i',"i'm" ,'me', 'my', 'myself', 'we', 'our', 'ours', 'ourselves', 'y
                 'now', 'd', 'll', 'm', 'o', 're', 've', 'y', 'ain', 'aren', "aren't", 'couldn', "couldn't", 'didn', "didn't", 'doesn', "doesn't", 'hadn', 
                 "hadn't", 'hasn', "hasn't", 'haven', "haven't", 'isn', "isn't", 'ma', 'mightn', "mightn't", 'mustn', "mustn't", 'needn', "needn't", 'shan', 
                 "shan't", 'shouldn', "shouldn't", 'wasn', "wasn't", 'weren', "weren't", 'won', "won't", 'wouldn', "wouldn't"]
-def text_to_dataframe(lines,ignore_stopwords=True):
+def text_to_dataframe(lines,ignore_stopwords):
     words=[]
     data={}
     song = [re.sub("[^a-zA-Z0-9\-' .]", '', x).replace('-',' ') for x in lines if ('[' not in x or ']' not in x) and x !='\n']
@@ -25,7 +25,13 @@ def text_to_dataframe(lines,ignore_stopwords=True):
         row=[]
         for y in range(number_of_words):
             if words[x] == words[y]:
-                row.append(words.count(words[x]))
+                if ignore_stopwords:
+                    if words[x] not in stopwords:
+                        row.append(words.count(words[x]))
+                    else:
+                        row.append(None)
+                else:
+                    row.append(words.count(words[x]))
             else:
                 row.append(None)
         matrix.append(row)

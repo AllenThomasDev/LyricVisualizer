@@ -3,7 +3,7 @@ from bs4 import BeautifulSoup
 from convert import *
 
 
-def pull_lyric(url,ignore_stopwords=True):
+def pull_lyric(url,ignore_stopwords):
     page = requests.get(url)
     soup = BeautifulSoup(page.content, 'html.parser')
     verses=soup.find_all('p','class'=="verse")
