@@ -9,7 +9,109 @@ from getlyric import pull_lyric
 from songs import songs
 import time
 
-# https://www.metrolyrics.com/thinking-about-you-lyrics-frank-ocean.html
+themes=[{'label':'default','value':[[0.0, '#0d0887'], [0.1111111111111111,
+                                  '#46039f'], [0.2222222222222222, '#7201a8'],
+                                  [0.3333333333333333, '#9c179e'],
+                                  [0.4444444444444444, '#bd3786'],
+                                  [0.5555555555555556, '#d8576b'],
+                                  [0.6666666666666666, '#ed7953'],
+                                  [0.7777777777777778, '#fb9f3a'],
+                                  [0.8888888888888888, '#fdca26'], [1.0,
+                                  '#f0f921']]},
+{'label': 'aggrnyl', 'value': 'aggrnyl'} ,
+{'label': 'agsunset', 'value': 'agsunset'} ,
+{'label': 'blackbody', 'value': 'blackbody'} ,
+{'label': 'bluered', 'value': 'bluered'} ,
+{'label': 'blues', 'value': 'blues'} ,
+{'label': 'blugrn', 'value': 'blugrn'} ,
+{'label': 'bluyl', 'value': 'bluyl'} ,
+{'label': 'brwnyl', 'value': 'brwnyl'} ,
+{'label': 'bugn', 'value': 'bugn'} ,
+{'label': 'bupu', 'value': 'bupu'} ,
+{'label': 'burg', 'value': 'burg'} ,
+{'label': 'burgyl', 'value': 'burgyl'} ,
+{'label': 'cividis', 'value': 'cividis'} ,
+{'label': 'darkmint', 'value': 'darkmint'} ,
+{'label': 'electric', 'value': 'electric'} ,
+{'label': 'emrld', 'value': 'emrld'} ,
+{'label': 'gnbu', 'value': 'gnbu'} ,
+{'label': 'greens', 'value': 'greens'} ,
+{'label': 'greys', 'value': 'greys'} ,
+{'label': 'hot', 'value': 'hot'} ,
+{'label': 'inferno', 'value': 'inferno'} ,
+{'label': 'jet', 'value': 'jet'} ,
+{'label': 'magenta', 'value': 'magenta'} ,
+{'label': 'magma', 'value': 'magma'} ,
+{'label': 'mint', 'value': 'mint'} ,
+{'label': 'orrd', 'value': 'orrd'} ,
+{'label': 'oranges', 'value': 'oranges'} ,
+{'label': 'oryel', 'value': 'oryel'} ,
+{'label': 'peach', 'value': 'peach'} ,
+{'label': 'pinkyl', 'value': 'pinkyl'} ,
+{'label': 'plasma', 'value': 'plasma'} ,
+{'label': 'plotly3', 'value': 'plotly3'} ,
+{'label': 'pubu', 'value': 'pubu'} ,
+{'label': 'pubugn', 'value': 'pubugn'} ,
+{'label': 'purd', 'value': 'purd'} ,
+{'label': 'purp', 'value': 'purp'} ,
+{'label': 'purples', 'value': 'purples'} ,
+{'label': 'purpor', 'value': 'purpor'} ,
+{'label': 'rainbow', 'value': 'rainbow'} ,
+{'label': 'rdbu', 'value': 'rdbu'} ,
+{'label': 'rdpu', 'value': 'rdpu'} ,
+{'label': 'redor', 'value': 'redor'} ,
+{'label': 'reds', 'value': 'reds'} ,
+{'label': 'sunset', 'value': 'sunset'} ,
+{'label': 'sunsetdark', 'value': 'sunsetdark'} ,
+{'label': 'teal', 'value': 'teal'} ,
+{'label': 'tealgrn', 'value': 'tealgrn'} ,
+{'label': 'viridis', 'value': 'viridis'} ,
+{'label': 'ylgn', 'value': 'ylgn'} ,
+{'label': 'ylgnbu', 'value': 'ylgnbu'} ,
+{'label': 'ylorbr', 'value': 'ylorbr'} ,
+{'label': 'ylorrd', 'value': 'ylorrd'} ,
+{'label': 'algae', 'value': 'algae'} ,
+{'label': 'amp', 'value': 'amp'} ,
+{'label': 'deep', 'value': 'deep'} ,
+{'label': 'dense', 'value': 'dense'} ,
+{'label': 'gray', 'value': 'gray'} ,
+{'label': 'haline', 'value': 'haline'} ,
+{'label': 'ice', 'value': 'ice'} ,
+{'label': 'matter', 'value': 'matter'} ,
+{'label': 'solar', 'value': 'solar'} ,
+{'label': 'speed', 'value': 'speed'} ,
+{'label': 'tempo', 'value': 'tempo'} ,
+{'label': 'thermal', 'value': 'thermal'} ,
+{'label': 'turbid', 'value': 'turbid'} ,
+{'label': 'armyrose', 'value': 'armyrose'} ,
+{'label': 'brbg', 'value': 'brbg'} ,
+{'label': 'earth', 'value': 'earth'} ,
+{'label': 'fall', 'value': 'fall'} ,
+{'label': 'geyser', 'value': 'geyser'} ,
+{'label': 'prgn', 'value': 'prgn'} ,
+{'label': 'piyg', 'value': 'piyg'} ,
+{'label': 'picnic', 'value': 'picnic'} ,
+{'label': 'portland', 'value': 'portland'} ,
+{'label': 'puor', 'value': 'puor'} ,
+{'label': 'rdgy', 'value': 'rdgy'} ,
+{'label': 'rdylbu', 'value': 'rdylbu'} ,
+{'label': 'rdylgn', 'value': 'rdylgn'} ,
+{'label': 'spectral', 'value': 'spectral'} ,
+{'label': 'tealrose', 'value': 'tealrose'} ,
+{'label': 'temps', 'value': 'temps'} ,
+{'label': 'tropic', 'value': 'tropic'} ,
+{'label': 'balance', 'value': 'balance'} ,
+{'label': 'curl', 'value': 'curl'} ,
+{'label': 'delta', 'value': 'delta'} ,
+{'label': 'edge', 'value': 'edge'} ,
+{'label': 'hsv', 'value': 'hsv'} ,
+{'label': 'icefire', 'value': 'icefire'} ,
+{'label': 'phase', 'value': 'phase'} ,
+{'label': 'twilight', 'value': 'twilight'} ,
+{'label': 'mrybm', 'value': 'mrybm'} ,
+{'label': 'mygbm', 'value': 'mygbm'} ,
+]   
+
 app = dash.Dash(__name__,assets_external_path="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css",  
                     meta_tags=[
         {"name": "viewport", "content": "width=device-width, initial-scale=1"}
@@ -31,8 +133,14 @@ children=[
                     html.Div(
                         children=[
                         html.P('Search Song by URL(Only MetroLyrics)-',style={'color':'white','font-family':'Verdana'}),
-                        dcc.Input(id='song-url', value='',type='text',style={'width':'70%'})],style={'width':'100%'})
-                        ],style={'max-width':'250','float':'left','text-align':'left'}),
+                        dcc.Input(id='song-url', value='',type='text',style={'width':'70%'})
+                                ],style={'width':'100%'}),
+                     html.P('Color Scheme-',style={'color':'white','font-family':'Verdana'}),
+                    dcc.Dropdown(id='theme',
+                        options=themes,
+                        clearable=False,
+                        value='default',style={'color':'black'}),
+            ],style={'max-width':'250','float':'left','text-align':'left'}),
 
     html.Div(children=[
         dcc.Graph(id="graph",responsive=True,style={'height':'100%','width':'100%'}),
@@ -53,9 +161,10 @@ children=[
     Output('graph', 'figure'),
     [
      Input(component_id='song-url', component_property='value'),
-     Input(component_id='stopword-choice', component_property='value')]
+     Input(component_id='stopword-choice', component_property='value'),
+     Input(component_id='theme', component_property='value')]
 )
-def update_graph(song_url,stopword_choice):
+def update_graph(song_url,stopword_choice,theme):
     url = song_url
     if stopword_choice==1:
         df = pull_lyric(url,False)
@@ -91,6 +200,7 @@ def update_graph(song_url,stopword_choice):
     fig.add_trace(
     go.Heatmap(
             z=df['z'],
+            colorscale=theme,
             hoverongaps = False
 
     ))
